@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.example.main.wantpdca.db.entity.WantDeatilEntity;
 import com.example.main.wantpdca.db.entity.WantEntity;
 import com.example.main.wantpdca.dto.SearchWantListCondition;
 
@@ -42,6 +43,7 @@ public class WantDatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
+        db.execSQL(ActDatabaseHelper.ACT_CREATE_TABLE);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class WantDatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                new String[]{"wantId", "motivationId", "wantText", "planId","doId", "checkId", "actId","createdAt","updatedAt"},
+                new String[]{"wantId", "motivationId", "wantText", "planId", "doId", "checkId", "actId", "createdAt", "updatedAt"},
                 null,
                 null,
                 null,
@@ -106,31 +108,26 @@ public class WantDatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    public WantEntity getWantById(int wantId){
+    public WantEntity getWantDetailById(int wantId){
         WantEntity entity;
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                new String[]{"wantId", "motivationId", "wantText", "planId","doId", "checkId", "actId","createdAt","updatedAt"},
-                "wantId = ?",
-                new String[]{String.valueOf(wantId)},
-                null,
-                null,
-                "wantId"
-        );
+
+       Cursor cursor = db.rawQuery("select * from want where wantId = ?", new String[]{String.valueOf(wantId)});
 
         boolean hasNext = cursor.moveToFirst();
-            entity = new WantEntity ();
+            entity = new WantEntity();
             entity.setWantId(cursor.getInt(cursor.getColumnIndex("wantId")));
-            entity.setMotivationId(cursor.getInt(cursor.getColumnIndex("motivationId")));
+            //entity.setMotivationId(cursor.getInt(cursor.getColumnIndex("motivationId")));
             entity.setWantText(cursor.getString(cursor.getColumnIndex("wantText")));
-            entity.setPlanId(cursor.getInt(cursor.getColumnIndex("planId")));
-            entity.setDoId(cursor.getInt(cursor.getColumnIndex("doId")));
-            entity.setCheckId(cursor.getInt(cursor.getColumnIndex("checkId")));
-            entity.setActId(cursor.getInt(cursor.getColumnIndex("actId")));
-            entity.setCreatedAt(cursor.getInt(cursor.getColumnIndex("createdAt")));
-            entity.setUpdatedAt(cursor.getInt(cursor.getColumnIndex("updatedAt")));
+//            entity.setPlanId(cursor.getInt(cursor.getColumnIndex("planId")));
+//            entity.setDoId(cursor.getInt(cursor.getColumnIndex("doId")));
+//            entity.setCheckId(cursor.getInt(cursor.getColumnIndex("checkId")));
+//            entity.setActId(cursor.getInt(cursor.getColumnIndex("actId")));
+//        entity.setActId(cursor.getInt(cursor.getColumnIndex("actId")));
+//            entity.setCreatedAt(cursor.getInt(cursor.getColumnIndex("createdAt")));
+//            entity.setUpdatedAt(cursor.getInt(cursor.getColumnIndex("updatedAt")));
         return entity;
     }
+
 }

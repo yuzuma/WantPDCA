@@ -13,30 +13,39 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_height="155dp"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:maxLines="10"
-        android:minLines="5"
+        android:maxLines="6"
+        android:minLines="3"
         android:id="@+id/actAddTitle" />
-
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="画像"
+        android:orientation="horizontal" >
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/actImageAddBtn"
-        android:layout_gravity="bottom" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_plus"/>
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker" />
+    </LinearLayout>
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="登録"
-            android:id="@+id/actAddBtn"
-             />
+            android:id="@+id/actAddBtn"/>
 
         <Button
         android:layout_width="wrap_content"
@@ -44,6 +53,4 @@
         android:text="want画面へ"
         android:id="@+id/wantDetailBtn" />
     </LinearLayout>
-
-
 </LinearLayout>
